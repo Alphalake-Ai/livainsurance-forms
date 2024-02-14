@@ -264,23 +264,23 @@
                         </thead>
                         <tr>
                             <td>Consultation Fees</td>
-                            <td><input type="number" min="0" name="fr_cf"></td>
-                            <td><input type="number" min="0" name="omr_cf"></td>
+                            <td><input type="number" required required min="0" name="fr_cf"></td>
+                            <td><input type="number" required required min="0" name="omr_cf"></td>
                         </tr>
                         <tr>
                             <td>Laboratory/Clinical Examination Charges</td>
-                            <td><input type="number" min="0" name="fr_cec"></td>
-                            <td><input type="number" min="0" name="omr_cec"></td>
+                            <td><input type="number" required required min="0" name="fr_cec"></td>
+                            <td><input type="number" required required min="0" name="omr_cec"></td>
                         </tr>
                         <tr>
                             <td>Medicine Cost</td>
-                            <td><input type="number" min="0" name="fr_mc"></td>
-                            <td><input type="number" min="0" name="omr_mc"></td>
+                            <td><input type="number" required required min="0" name="fr_mc"></td>
+                            <td><input type="number" required required min="0" name="omr_mc"></td>
                         </tr>
                         <tr>
                             <td>Treatment Charges</td>
-                            <td><input type="number" min="0" name="fr_tc"></td>
-                            <td><input type="number" min="0" name="omr_tc"></td>
+                            <td><input type="number" required required min="0" name="fr_tc"></td>
+                            <td><input type="number" required required min="0" name="omr_tc"></td>
                         </tr>
                         <tr>
                             <td>
@@ -292,12 +292,12 @@
                                             <div style="font-size: smaller;">
                                                 <div class="d-flex justify-cotent-between">
                                                     <label style="width: 150px;" for="no_of_days">Number of Days</label>
-                                                    <input style="width: 50px;" type="number" min="0" id="no_of_days"
+                                                    <input style="width: 50px;" type="number"  min="0" id="no_of_days"
                                                         name="no_of_days" required>
                                                 </div>
                                                 <div class="d-flex justify-cotent-between">
                                                     <label style="width: 150px;" for="rate">Cost Per Day</label>
-                                                    <input style="width: 50px;" type="number" min="0" id="rate"
+                                                    <input style="width: 50px;" type="number" required  min="0" id="rate"
                                                         name="rate">
                                                 </div>
                                             </div>
@@ -310,41 +310,41 @@
                             <td style="position: relative;">
                                 <div class="d-flex flex-column h-100"
                                     style="position: absolute; top: 0; left: 0; width: 100%; padding: 0.4rem 0.3rem; row-gap: 0.3rem;">
-                                    <input type="number" name="fr_cos" id="fr_cos">
-                                    <input type="number" min="0" name="fr_hrr">
-                                    <input type="number" min="0" name="fr_sf" style="margin-top: auto;">
-                                    <input type="number" min="0" name="fr_cos_otr">
+                                    <input type="number" required name="fr_cos" id="fr_cos">
+                                    <input type="number" required min="0" name="fr_hrr">
+                                    <input type="number" required min="0" name="fr_sf" style="margin-top: auto;">
+                                    <input type="number" required min="0" name="fr_cos_otr">
                                 </div>
                             </td>
                             <td style="position: relative;">
                                 <div class="d-flex flex-column h-100"
                                     style="position: absolute; top: 0; left: 0; width: 100%; padding: 0.4rem 0.3rem; row-gap: 0.3rem;">
-                                    <input type="number" name="omr_cos" id="fr_cos">
-                                    <input type="number" min="0" name="omr_hrr">
-                                    <input type="number" min="0" name="omr_sf" style="margin-top: auto;">
-                                    <input type="number" min="0" name="omr_cos_otr">
+                                    <input type="number" required name="omr_cos" id="fr_cos">
+                                    <input type="number" required min="0" name="omr_hrr">
+                                    <input type="number" required min="0" name="omr_sf" style="margin-top: auto;">
+                                    <input type="number" required min="0" name="omr_cos_otr">
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>Others</td>
-                            <td><input type="number" min="0" name="fr_otr"></td>
-                            <td><input type="number" min="0" name="omr_otr"></td>
+                            <td><input type="number" required required min="0" name="fr_otr"></td>
+                            <td><input type="number" required required min="0" name="omr_otr"></td>
                         </tr>
                         <tr>
                             <td>Total Amount</td>
-                            <td><input type="number" min="0" name="fr_ta"></td>
-                            <td><input type="number" min="0" name="omr_ta"></td>
+                            <td><input type="number" required required min="0" name="fr_ta"></td>
+                            <td><input type="number" required required min="0" name="omr_ta"></td>
                         </tr>
                         <tr>
                             <td>Less: Excess/deductible/co-pay Applicable</td>
-                            <td><input type="number" min="0" name="fr_ded"></td>
-                            <td><input type="number" min="0" name="omr_ded"></td>
+                            <td><input type="number" required required min="0" name="fr_ded"></td>
+                            <td><input type="number" required required min="0" name="omr_ded"></td>
                         </tr>
                         <tr>
                             <td>Balance Due</td>
-                            <td><input type="number" min="0" name="fr_balance"></td>
-                            <td><input type="number" min="0" name="omr_balance"></td>
+                            <td><input type="number" required required min="0" name="fr_balance"></td>
+                            <td><input type="number" required required min="0" name="omr_balance"></td>
                         </tr>
                     </table>
                 </div>
@@ -426,7 +426,7 @@
                     <div class="d-flex flex-wrap" style="column-gap: 1rem;">
                         <label for="no_of_documents"><b>Total Number of Documents Attached</b> <small>(Including this
                                 Form)</small></label>
-                        <input type="number" min="1" step="1" required name="no_of_documents" id="no_of_documents">
+                        <input type="number" required min="1" step="1" required name="no_of_documents" id="no_of_documents">
                     </div>
                 </div>
                 <div>

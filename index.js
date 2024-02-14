@@ -48,8 +48,12 @@ const upload = multer({ storage: storage });
 
 app.use(express.static('public'))
 
-app.get('/', (req, res) => {
-    res.render('index');
+app.get("/", (req, res) => {
+    res.render("index");
+})
+
+app.get('/clrc', (req, res) => {
+    res.render('clrc');
 });
 
 app.post("/clrc", async (req, res) => {
