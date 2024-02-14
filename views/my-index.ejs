@@ -1,0 +1,81 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Minor Road Traffic Accident Form</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Minor Road Traffic Accident Form</h1>
+  <h2>إســــتمــــارة حــــادث مــــرور (بــــسيــــط)</h2>
+  <p>Date: تاريخ الحادث <input type="date" name="date"> Time: وقت الحادث <input type="time" name="time"></p>
+  <p>Location: موقع الحادث <input type="text" name="location"></p>
+  <p>Type of Accident: الحـــادث نــــوع <input type="radio" name="type" value="stationary"> Collision against a stationary object: إصطدام بجسم ثابت <input type="radio" name="type" value="collision"> Collision between vehicles: إصطدام بين مركبتين أو أكثر <input type="radio" name="type" value="roll-over"> Roll-over: تدهور</p>
+  <table>
+    <tr>
+      <th>Details: البيانات</th>
+      <th>First Vehicle: المـــركبـــة ا­ولـــى</th>
+      <th>Second Vehicle (Faulty Driver): المركبة الثانية (المتسبب)</th>
+    </tr>
+    <tr>
+      <td>Vehicle No.: رقم المركبة</td>
+      <td><input type="text" name="v1_no"></td>
+      <td><input type="text" name="v2_no"></td>
+    </tr>
+    <tr>
+      <td>Driver's Name: سائق المركبة</td>
+      <td><input type="text" name="v1_name"></td>
+      <td><input type="text" name="v2_name"></td>
+    </tr>
+    <tr>
+      <td>Address / Tel. No.: العنوان / الهاتف</td>
+      <td><input type="text" name="v1_address"><br><input type="tel" name="v1_tel"></td>
+      <td><input type="text" name="v2_address"><br><input type="tel" name="v2_tel"></td>
+    </tr>
+    <tr>
+      <td>Driving License No. / Category: رقم الرخصة / الفئة</td>
+      <td><input type="text" name="v1_license"><br><input type="text" name="v1_category"></td>
+      <td><input type="text" name="v2_license"><br><input type="text" name="v2_category"></td>
+    </tr>
+    <tr>
+      <td>Sex / Nationality: الجنسية / الجنس</td>
+      <td><input type="text" name="v1_sex"><br><input type="text" name="v1_nationality"></td>
+      <td><input type="text" name="v2_sex"><br><input type="text" name="v2_nationality"></td>
+    </tr>
+    <tr>
+      <td>Insurance Company: شركة التأمين</td>
+      <td><input type="text" name="v1_insurance"></td>
+      <td><input type="text" name="v2_insurance"></td>
+    </tr>
+    <tr>
+      <td>Type of Insurance: نوع الوثيقة</td>
+      <td><input type="text" name="v1_insurance_type"></td>
+      <td><input type="text" name="v2_insurance_type"></td>
+    </tr>
+    <tr>
+      <td>Insurance Policy No.: الوثيقة رقم</td>
+      <td><input type="text" name="v1_insurance_no"></td>
+      <td><input type="text" name="v2_insurance_no"></td>
+    </tr>
+  </table>
+  <p>Witness: الشهود</p>
+  <p>First Witness: الشاهد ا­ول Name: اسم <input type="text" name="w1_name"> Address: العنوان <input type="text" name="w1_address"> Tel. No.: رقم الهاتف <input type="tel" name="w1_tel"></p>
+  <p>Second Witness: الشاهد الثاني Name: اسم <input type="text" name="w2_name"> Address: العنوان <input type="text" name="w2_address"> Tel. No.: رقم الهاتف <input type="tel" name="w2_tel"></p>
+  <p>Damages to the Vehicle: ا­ضـــرار بـــالـــمـــركبـــــات <input type="text" name="damages"></p>
+  <p>Causes of Accident: أسباب الحادث</p>
+  <p><input type="checkbox" name="cause" value="speed"> Over-speed: السرعة <input type="checkbox" name="cause" value="negligence"> Negligence: اهمال <input type="checkbox" name="cause" value="fatigue"> Fatigue: ارهاق <input type="checkbox" name="cause" value="overtaking"> Overtaking: التجاوز <input type="checkbox" name="cause" value="weather"> Weather Conditions: الطقس <input type="checkbox" name="cause" value="hault"> Sudden Hault: الوقوف المفاجىء <input type="checkbox" name="cause" value="distance"> No safety distance: عدم ترك مسافة امان <input type="checkbox" name="cause" value="action"> Wrong action: سوء التصرف <input type="checkbox" name="cause" value="vehicle"> Vehicle defects: عيوب المركبة <input type="checkbox" name="cause" value="road"> Road defects: عيوب الطريق <input type="checkbox" name="cause" value="gsm"> Using GSM: الهاتف النقال</p>
+  <p>First Party Signature: توقيع الطرف اول <input type="text" name="p1_sign"> Second Party Signature: توقيع الطرف الثاني <input type="text" name="p2_sign"></p>
+  <p>For the use of Liva Insurance: ستعمال شركة ليڤا للتأمين</p>
+  <p>The vehicle involved in the accident is insured with us vide Insurance Policy No.: المركبة المتسببة في الحادث مؤمنة لدينا بموجب الوثيقة رقم:ر <input type="text" name="liva_policy"></p>
+  <p>Type of Insurance: نوع التأمين <input type="text" name="liva_type"> Claim No.: رقم المطالبة <input type="text" name="liva_claim"></p>
+  <p>The Company will repair the damages as per the insurance policy. Therefore, technical opinion is required: بموجبه سوف تقوم الشركة بإصلاح المركبة المتضررة نطلب رأي فني حول أسباب الحادث</p>
+  <p>Name of the Signatory: أسم المخول بالتوقيع <input type="text" name="liva_name"> Signature & Stamp: التوقيع والختم <input type="text" name="liva_sign"></p>
+  <p>Liva Insurance, P.O. Box: 1463, Ruwi, PC: 112, Sultanate of Oman, Tel.:24766800

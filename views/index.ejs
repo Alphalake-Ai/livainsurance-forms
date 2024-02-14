@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/global.css">
+    <link rel="preload" href="/Aller-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .font-aller {
+            font-family: 'Aller', sans-serif;
+        }
+
+        .font-ge {
+            font-family: 'GE-SS-TWO-Light' !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        table,
+        th,
+        td {
+            border: 1.5px solid var(--liva);
+        }
+
+        th {
+            height: 40px;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        td {
+            height: 40px;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        td.font-aller {
+            padding-right: 40px;
+            position: relative;
+        }
+
+        td.font-ge {
+            padding-left: 40px;
+        }
+
+        td.font-aller::after {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            z-index: 2;
+            border: 1.5px solid var(--liva);
+            right: -14px;
+            top: 7px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .large {
+            font-size: large;
+        }
+
+        td {
+            font-size: small;
+        }
+
+        .small {
+            font-size: small;
+        }
+
+        button[type="submit"] {
+            margin: auto;
+            cursor: pointer;
+            font-size: large;
+            outline: none;
+            border: none;
+            width: 150px;
+            background-color: var(--liva);
+            color: #fff;
+            padding: 6px 7px;
+        }
+        .chk {
+            display: flex;
+            align-items: start;
+            column-gap: 10px;
+            padding: 10px;
+        }
+
+        .chk label {
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 3px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+
+        input[type="checkbox"]:checked+label {
+            color: green;
+        }
+    </style>
+    <title>Check list for Reimbursement Claims</title>
+</head>
+
+<body>
+    <div>
+        <img src="/rm-banner.jpg" alt="Banner" width="100%">
+    </div>
+    <br>
+    <div style="text-align: center; padding: 0px 10px;">
+        <h3 class="font-aller" style="word-spacing: 4px;">
+            Check list for Reimbursement Claims (Please tick the appropriate check box if the documents are
+            enclosed)
+        </h3>
+        <h3 class="font-ge">
+            قائمة التحقق من مطالبات السداد. (يرجى وضع علامة في خانة الاختيار المناسبة إذا كانت المستندات مرفقة)
+        </h3>
+    </div>
+    <br>
+    <form action="/clrc" method="post">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <div>
+                <div style="padding: 10px;">
+                    <strong>
+                        <span class="uppercase font-aller">Outpatient Claims (OP)</span>
+                        <br>
+                        <span class="font-ge">العلاج بالعيادات الخارجية</span>
+                    </strong>
+                </div>
+                <hr>
+                <div class="chk">
+                    <input type="checkbox" id="op_df" name="op_df">
+                    <label for="op_df">
+                        <span class="font-aller">Duly filled & signed claim form with all the details as
+                            applicable</span><br>
+                        <span class="text-right font-ge">تعبئة إستمارة المطالبة كما ينبغي مع ذكر التفاصيل
+                            المطلوبة</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="op_cm" name="op_cm">
+                    <label for="op_cm">
+                        <span class="font-aller">Copy of Medical card of the Patient</span> <br>
+                        <span class="text-right font-ge">نسخة من البطاقة الصحية للمريض</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="op_pa" name="op_pa">
+                    <label for="op_pa">
+                        <span class="font-aller">Intimation/Pre Approval Copy of the Mail- Intimated or Received</span>
+                        <br>
+                        <span class="text-right font-ge">نسخة من البريد المرسل للاخطار أو الموافقة المسبقة</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="op_bi" name="op_bi">
+                    <label for="op_bi">
+                        <span class="font-aller">All "Original" Bills/Invoices and it’s Receipts towards Payment
+                            made</span><br>
+                        <span class="text-right font-ge">جميع الفواتير اصلية مع ايصالات الدفع</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="op_mr" name="op_mr">
+                    <label for="op_mr">
+                        <span class="font-aller">Medical Record/Medical Report stating the Diagnosis & Treatment
+                            details</span><br>
+                        <span class="text-right font-ge">التقارير الطبية التي توضح تشخيص المرض و تفاصيل العلاج
+                            المعطى</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="op_pf" name="op_pf">
+                    <label for="op_pf">
+                        <span class="font-aller">Prescription from the doctor if any medicine bills are
+                            submitted</span><br>
+                        <span class="text-right font-ge">الوصفه الطبية لجميع ادوية المصروفة</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="op_ir" name="op_ir">
+                    <label for="op_ir">
+                        <span class="font-aller">Investigation reports if any investigation bills are submitted</span>
+                        <br>
+                        <span class="text-right font-ge">تقارير الفحوصات والتحاليل المختبرية</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="op_bu" name="op_bu">
+                    <label for="op_bu">
+                        <span class="font-aller">Break up towards the submitted bills/Invoice if any</span> <br>
+                        <span class="text-right font-ge">الفواتير المفصلة لجميع الفواتير المرفقة</span>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <div style="padding: 10px;">
+                    <strong>
+                        <span class="uppercase font-aller">Inpatient/Daycare Overseas Claims (IP)</span><br>
+                        <span class="font-ge">التنويم / الرعاية النهارية و العلاج بالخارج</span>
+                    </strong>
+                </div>
+                <hr>
+                <div class="chk">
+                    <input type="checkbox" id="ip_df" name="ip_df">
+                    <label for="ip_df">
+                        <span class="font-aller">Duly filled & signed claim form with all the details as
+                            applicable</span><br>
+                        <span class="text-right font-ge">تعبئة إستمارة المطالبة كما ينبغي مع ذكر التفاصيل
+                            المطلوبة</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="ip_cm" name="ip_cm">
+                    <label for="ip_cm">
+                        <span class="font-aller">Copy of Medical card of the Patient</span> <br>
+                        <span class="text-right font-ge">نسخة من البطاقة الصحية للمريض</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="ip_pa" name="ip_pa">
+                    <label for="ip_pa">
+                        <span class="font-aller">Intimation/Pre Approval Copy of the Mail- Intimated or Received</span>
+                        <br>
+                        <span class="text-right font-ge">نسخة من البريد المرسل للاخطار أو الموافقة المسبقة</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="ip_bi" name="ip_bi">
+                    <label for="ip_bi">
+                        <span class="font-aller">All "Original" Bills/Invoices and it’s Receipts towards Payment
+                            made</span><br>
+                        <span class="text-right font-ge">جميع الفواتير اصلية مع ايصالات الدفع</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="ip_mr" name="ip_mr">
+                    <label for="ip_mr">
+                        <span class="font-aller">Medical Record/Medical Report stating the Diagnosis & Treatment
+                            details</span><br>
+                        <span class="text-right font-ge">التقارير الطبية التي توضح تشخيص المرض و تفاصيل العلاج
+                            المعطى</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="ip_pf" name="ip_pf">
+                    <label for="ip_pf">
+                        <span class="font-aller">Prescription from the doctor if any medicine bills are
+                            submitted</span><br>
+                        <span class="text-right font-ge">الوصفه الطبية لجميع ادوية المصروفة</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="ip_ir" name="ip_ir">
+                    <label for="ip_ir">
+                        <span class="font-aller">Investigation reports if any investigation bills are submitted</span>
+                        <br>
+                        <span class="text-right font-ge">تقارير الفحوصات والتحاليل المختبرية</span>
+                    </label>
+                </div>
+                <div class="chk">
+                    <input type="checkbox" id="ip_bu" name="ip_bu">
+                    <label for="ip_bu">
+                        <span class="font-aller">Break up towards the submitted bills/Invoice if any</span> <br>
+                        <span class="text-right font-ge">الفواتير المفصلة لجميع الفواتير المرفقة</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div style="display: flex;">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <br>
+</body>
+
+</html>

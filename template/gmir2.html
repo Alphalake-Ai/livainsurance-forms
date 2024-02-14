@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --liva: #F96B23;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        @font-face {
+            font-family: "Aller";
+            src: url("./resources/Aller.woff2");
+        }
+
+        @font-face {
+            font-family: "Aller";
+            src: url("./resources/Aller.woff");
+        }
+
+        @font-face {
+            font-family: "GE-SS-Two-Light";
+            src: url("./resources/GE-SS-Two-Light.woff2");
+        }
+
+        @font-face {
+            font-family: "GE-SS-Two-Light";
+            src: url("./resources/GE-SS-Two-Light.woff");
+        }
+
+        .font-aller {
+            font-family: 'Aller', sans-serif;
+        }
+
+        .font-ge {
+            font-family: 'GE-SS-TWO-Light' !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .box {
+            min-width: 100px;
+            flex: 1;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--liva);
+            background-color: #ff9c6b62;
+            font-family: 'Aller', sans-serif;
+        }
+
+        .d-block {
+            display: block;
+        }
+
+        .capitalize {
+            text-transform: uppercase;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1.5px solid var(--liva);
+        }
+
+        .fdiv {
+            font-size: x-small;
+            display: flex;
+            align-items: center;
+            padding-bottom: 2px;
+        }
+    </style>
+    <title>Group Medical Insurance Reimbursment Claim Form</title>
+</head>
+
+<body style="border: 1px solid var(--liva);">
+    <div style="padding-left: 30px; border-bottom: 1px solid var(--liva);">
+        <img src="./resources/logo-orange.png" alt="Logo Orange" width="70px">
+    </div>
+    <div class="text-center" style="font-size: xx-small;">
+        <span class="font-aller">"Receipt/Submission of this form does not amount to any liability or admission under
+            the claim on the part
+            of the insurance company."</span>
+        <span class="font-ge">استلام/تقديم هذه الاستمارة لا يمثل أي التزام يتعلق بالمطالبة على عاتق شركة التأمين</span>
+    </div>
+    <div
+        style="background-color: var(--liva); color: #fff; display: flex; justify-content: center; column-gap: 30px; font-size: small; align-items: center;">
+        <span class="font-aller capitalize">Group Medical Insurance Reimbursement Claim Form</span>
+        <span class="font-ge">جماعي طبي بتأمين مطالبة استمارة</span>
+    </div>
+    <div class="wrap" style="padding-left: 40px; padding-right: 40px; position: relative;">
+            <div class="fdiv">
+                <div style="width: 150px;">
+                    <small><b class="d-block font-ge">رقم بطاقة العضو</b></small>
+                    <small class="d-block font-ge">(كما موضحة بالبطاقة الطبية)</small>
+                    <b class="d-block font-aller">1. Member ID</b>
+                    <small class="font-aller">(As in patients medical card)</small>
+                </div>
+                <div class="box">Tere bina krishan</div>
+                <div style="width: 100px; padding-left: 10px;">
+                    <small class="d-block font-ge">بطاقة الموظف</small>
+                    <b class="d-block font-aller">2. Staff ID</b>
+                </div>
+                <div class="box"></div>
+            </div>
+            <div class="fdiv">
+                <div style="width: 150px;">
+                    <small class="font-ge d-block">اسم صاحب العمل</small>
+                    <b class="d-block font-aller">3. Name of Employer</b>
+                </div>
+                <div class="box"></div>
+                <div style="width: 110px; padding-left: 10px;">
+                    <small class="font-ge d-block">وثيقة التأمين رقم</small>
+                    <b class="d-block font-aller">4. Policy Number</b>
+                </div>
+                <div class="box"></div>
+            </div>
+            <div class="fdiv">
+                <div style="width: 150px;">
+                    <small class="font-ge d-block">اسم الموظف</small>
+                    <b class="d-block font-aller">5. Name of Employee</b>
+                </div>
+                <div class="box"></div>
+                <div style="padding-left: 10px; padding-right: 10px;">
+                    <small class="font-ge d-block">سمسار / وكيل / رقم مطالبة العميل</small>
+                    <b class="d-block font-aller">6. Broker/Agent/Client claim ref. no.</b>
+                </div>
+                <div class="box"></div>
+            </div>
+            <div class="fdiv">
+                <div style="width: 150px;">
+                    <small class="font-ge d-block">اسم المريض</small>
+                    <b class="d-block font-aller">7. Name of Patient</b>
+                    <small class="d-block font-aller">(As in Patients Medical Card)</small>
+                </div>
+                <div class="box"></div>
+                <div style="padding-left: 10px; padding-right: 10px;">
+                    <small class="font-ge d-block">العلاقة مع الموظف</small>
+                    <b class="d-block font-aller">8. Relationship with the Employee</b>
+                </div>
+                <div class="box"></div>
+            </div>
+            <div class="fdiv">
+                <div style="padding-right: 10px;">
+                    <small class="font-ge d-block">البريد ا لكتروني</small>
+                    <b class="d-block font-aller">9. E-mail ID</b>
+                </div>
+                <div class="box"></div>
+                <div style="padding-left: 10px; padding-right: 10px;">
+                    <small class="font-ge d-block">رقم الهاتف النقال</small>
+                    <b class="d-block font-aller">10. GSM No.</b>
+                </div>
+                <div class="box"></div>
+            </div>
+            
+
+            <div class="fdiv" style="margin-top: 6px;">
+                <div style="padding-right: 10px;">
+                    <small class="font-ge d-block">تاريخ تلقي العلاج من</small>
+                    <b class="d-block font-aller">11. Date of Treatement From</b>
+                </div>
+                <div class="box"></div>
+                <div style="padding-left: 10px; padding-right: 10px;">
+                    <small class="font-ge d-block">إلى</small>
+                    <b class="d-block font-aller">To</b>
+                </div>
+                <div class="box"></div>
+                <div style="padding-left: 10px; padding-right: 10px;">
+                    <small class="font-ge d-block">الدولة التي تلقى فيها العلاج</small>
+                    <b class="d-block font-aller">12. Country of Treatement</b>
+                </div>
+                <div class="box"></div>
+            </div>
+            <div class="fdiv">
+                <div style="padding-right: 10px;">
+                    <small class="font-ge d-block">اسم المستشفى/العيادة (التي تم فيها العلاج)</small>
+                    <b class="font-aller">13. Name Of The Hospital/Clinic (Where Treatment Was Availed)</b>
+                </div>
+                <div class="box"></div>
+            </div>
+            <div style="font-size: x-small;">
+                <div style="display: flex; justify-content: space-between;">
+                    <b class="font-aller">14. Brief Description Of Nature Of Ailment/Diagnosis (Mandatory)</b>
+                    <span class="font-ge">وصف مختصر لطبيعة الحالة المرضية / التشخيصالطبي (إلزامي)</span>
+                </div>
+                <div class="box" style="height: 28px;">some <br> soms</div>
+            </div>
+
+            <table style="font-size: x-small; width: 100%; margin-top: 5px;">
+                <tr>
+                    <th>
+                        <span class="d-block font-ge">رقم</span>
+                        <span class="font-aller d-block">Sl. No.</span>
+                    </th>
+                    <th>
+                        <span class="d-block font-ge">التـفاصيـل</span>
+                        <span class="font-aller d-block">Description</span>
+                    </th>
+                    <th>
+                        <span class="d-block font-ge">المبلغ بالعملة اجنبية</span>
+                        <span class="font-aller d-block">Amount in Foreign Currency</span>
+                        <span class="font-aller">Currency ____ </span><span class="font-ge">العملة</span>
+                    </th>
+                    <th>
+                        <span class="d-block font-ge">المبلغ بالريال العماني</span>
+                        <span class="font-aller d-block">Amount in OMR</span>
+                    </th>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">i</td>
+                    <td style="display: flex; justify-content: space-between;">
+                        <span class="font-aller">Consultation Fees</span>
+                        <span class="font-ge">رسوم الاستشارة الطبية</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">ii</td>
+                    <td style="display: flex; justify-content: space-between;">
+                        <span class="font-aller">Laboratory/Clinical Examination Charges</span>
+                        <span class="font-ge">رسوم المختبر/ الفحص السريري</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">iii</td>
+                    <td style="display: flex; justify-content: space-between;">
+                        <span class="font-aller">Medicine Cost</span>
+                        <span class="font-ge">تكلفة ادوية</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">iv</td>
+                    <td style="display: flex; justify-content: space-between;">
+                        <span class="font-aller">Treatement Charges</span>
+                        <span class="font-ge">رسوم العلاج</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">v</td>
+                    <td style="display: flex; justify-content: space-between;">
+                        <span class="font-aller">
+                            Cost of Surgery <br>
+                            i) Hospital Room Rent <br>
+                            (No. of Days.................. (Days) *Rate Per Day ...................) <br>
+                            ii) Surgeons Fees <br>
+                            iii) Others
+                        </span>
+                        <span class="font-ge" style="text-align: right;">
+                            تكلفة العملية الجراحية . <br>
+                            أ) إيجار الغرفة بالمستشفى . تكلفة العملية الجراحية<br>
+                            (................... تكلفة اليوم x عدد اRيام .................... (يوم)) <br>
+                            ب) رسوم الجراحين<br>
+                            ج) أخرى
+                        </span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">vi</td>
+                    <td style="display: flex; justify-content: space-between;">
+                        <span class="font-aller">Others (Give Details) .............. </span>
+                        <span class="font-ge"> أخرى (الرجاء توضيح التفاصيل)</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">vii</td>
+                    <td>
+                        <b style="display: flex; justify-content: space-between;">
+                            <span class="font-aller">Total Amount</span>
+                            <span class="font-ge"> إجمالي التكلفة</span>
+                        </b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">viii</td>
+                    <td>
+                        <b style="display: flex; justify-content: space-between;">
+                            <span class="font-aller">Less: Excess/deductible/co-pay Applicable</span>
+                            <span class="font-ge">ناقص: مبلغ مدفوع بالزيادة/خصم/دفع مشترك</span>
+                        </b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">ix</td>
+                    <td style="display: flex; justify-content: space-between;">
+                        <span class="font-aller">Balance Due</span>
+                        <span class="font-ge">المتبقي المستحق</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <div style="font-size: x-small; margin-top: 5px;">
+                <div class="font-ge" style="text-align: right;">
+                    بهذا نفوض الشركة ليڤا للتأمين للقيام بتحويل مبلغ المطالبة المستحق إن وجد بموجب هذه المطالبة إلى حسابي
+                    البنكي
+                    المذكور أدناه
+                </div>
+                <span class="font-aller">
+                    We hereby authorise Liva to transfer the claim amount payable if any under this claim to my bank account
+                    mentioned below.
+                </span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: x-small;">
+                <b class="font-aller">15. Payment Details for Bank Transfer</b>
+                <span class="font-ge">بيانات الدفع بتحويل بنكي:</span>
+            </div>
+            <table style="width: 100%; background-color: #ff9c6b62; font-size: x-small;">
+                <tr>
+                    <td><span class="font-aller"> Bank Account Number</span> <span class="font-ge">رقم الحساب
+                            البنكي</span></td>
+                    <td class="font-aller">Alpha</td>
+                    <td><span class="font-aller"> Bank Name</span> <span class="font-ge">اسم البنك</span></td>
+                    <td><span class="font-aller"> Alpha</span></td>
+                </tr>
+                <tr>
+                    <td><span class="font-aller"> Bank Branch</span><span class="font-ge"> فرع البنك</span></td>
+                    <td><span class="font-aller"> Beta</span></td>
+                    <td><span class="font-aller">Beneficiary Name</span> <span class="font-ge">اسم
+                            المستفيد</span></td>
+                    <td class="font-aller"></td>
+                </tr>
+            </table>
+            <div style="font-size: x-small;">
+                <div class="font-ge" style="text-align: right;">يرجى إعادة فحصتفاصيل الحساب المصرفي قبل تقديمه. يجب على الموظف /
+                    المطالبة تكون مسؤولة
+                    عن التحويلات
+                    المصرفية خاطئ تتأثر بسبب التفاصيل البنك غير صحيح المقدمة من قبل له / لها</div>
+                <div class="font-aller">Please recheck the Bank Account details before submission. The employee/Claimant
+                    shall be responsible for
+                    wrong bank transfers affected due to incorrect Bank details provided by him/her</div>
+            </div>
+        <div class="font-ge" style="font-size: x-small; text-align: right;">
+            :إقرار
+        </div>
+        <div class="font-ge" style="font-size: x-small; text-align: right;">
+            بهـذا أؤكـد أنـا المريـض زوج/ زوجـة المريـض أو ولـي أمـره (إذا كان عمـر المريـض يقـل عـن ١٦ سـنة) بأننـي
+            أرغـب
+            فـي تقديـم هـذه المطالبـة وأؤكـد بـأن كافـة البيانـات التـي تـم توضيحهـا أعـلاه صحيحـة وكاملـة. أقـر بـأنه
+            فـي حالـة قيامـي بتقديـم بيانـات كاذبـة أو إخفائـي Rي حقائـق فسـوف يسـقط حقـي فـي المطالبـة التـي نصـت
+            عليهـا
+            وثيقـة التأميـن. بهـذا أفـوض الشـركة ليڤـا او وكيلـه (إن وجـد) الحصـول علـى بياناتـي الطبـية
+            ومسـتنداتي مـن أي مستشـفى/عيادة/طبيب ممارس/مختبر/مراكـز تشـخيص/صيدلية قامـت بتقديـم خدماتهـا الطبيـة
+            للمريـض.
+            إضافـة لذلـك أقـر بـأن اسـتلام هـذه الاستمارة/والمسـتندات المؤيـدة لهـا ... الـخ لا تـعتبر
+            بمثابة موافقة من الشركة ليڤا على ذلك ويحق لها قبول أو رفض أو طلب أي معلومات إضافية تتعلق بالمطالبة ، كما
+            أؤكد
+            بأنني على علم ودراية بشروط وأحكام وثيقة التأمين
+        </div>
+        <div class="font-aller" style="font-size: x-small;">
+            I confirm I am the patient/patient’s spouse or guardian (if patient under 16 years of age) and wish to claim
+            benefits and declare that all the particulars given above are to be correct and
+            complete. I agree that if I had made or will make false statement or suppression or concealment, of material
+            information relating to the claim my right to claim under the policy shall stand
+            forefeited. I hereby consent and authorise Liva insurance or its TPA (if any) to seek medical information
+            and
+            obtain documentary evidence from any hospital/clinic/medical
+            practioner/lab/diagnostic centers/pharmacy, who have attended or extended medical services to the patient. I
+            also agree that the receipt of this claim form/supporting documents etc does
+            not constitute an agreement by Liva insurance of the claim and Liva insurance reserves the right to process
+            or
+            reject or require additonal information in respect of the claim. I am also aware
+            of the policy terms, conditions and exclusion
+        </div>
+        <table style="width: 100%; table-layout: fixed; font-size: x-small; margin-top: 5px;">
+            <tr>
+                <th>
+                    <span class="font-aller">In Patient Claim/Day Care - Documents Required </span>
+                    <span class="font-ge">مطالبة المرضى المنومين/الرعاية النهارية-الوثائق المطلوبة</span>
+                </th>
+                <th>
+                    <span class="font-aller">Out Patient Claim - Documents Required</span>
+                    <span class="font-ge">المطالبة العيادات الخارجية - الوثائق المطلوبة</span>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-aller">All Original Invoice / Receipts</span>
+                    <span class="font-ge">جميع فواتير الاصلية المستلمة</span>
+                </td>
+                <td>
+                    <span class="font-aller">All Original Invoice / Receipts</span>
+                    <span class="font-ge">جميع فواتير الاصلية المستلمة</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-aller">Pre - Authorization</span>
+                    <span class="font-ge">ما قبل - تصريح</span>
+                </td>
+                <td>
+                    <span class="font-aller">Pre – Authorization (for Required Services)</span>
+                    <span class="font-ge">موافقة مبدائية للخدمات المطلوبة</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-aller">Discharge Summary</span>
+                    <span class="font-ge">تقرير خروج من المستشفى</span>
+                </td>
+                <td>
+                    <span class="font-aller">Prescription Copy</span>
+                    <span class="font-ge">نسخ وصفة طبية</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-aller">Description Copy</span>
+                    <span class="font-ge">نسخ وصفة طبية</span>
+                </td>
+                <td>
+                    <span class="font-aller">Photocopy of Medical Card</span>
+                    <span class="font-ge">صورة من بطاقة طبية</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-aller">Copy of Medical Card</span>
+                    <span class="font-ge">صورة من بطاقة طبية</span>
+                </td>
+                <td>
+                    <span class="font-aller">Investigation Reports (if any)</span>
+                    <span class="font-ge">تقارير فحوصات الطبية</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-aller">Investigation Reports/Medical Reports</span>
+                    <span class="font-ge">تقارير فحوصات الطبية / التقارير الطبية</span>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="fdiv" style="margin-top: 5px;">
+            <span class="font-aller" style="padding-right: 10px;">Total number of documents attached including this claim form</span>
+            <div class="box"></div>
+            <span class="font-ge" style="padding-left: 10px;">جمالي عدد الوثائق المرفقة بما في ذلك استمارة هذه المطالبة</span>
+        </div>
+        <table style="font-size: x-small; margin-top: 5px; width: 100%;">
+            <tr>
+                <td>
+                    <span>Signature Stamp of the Employer: ....</span> <span>التوقيع ختم صاحب العمل /</span> <br>
+                    <div style="display: flex; column-gap: 10px">Date: <div class="box"></div>
+                    </div>
+                </td>
+                <td>
+                    <span>Signature Of The Employee/Claimant : ...</span> <span>توقيع الموظف / المطالب</span><br>
+                    <div style="display: flex; column-gap: 10px;">Date: <div class="box"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="position: absolute; color: #fff; border: 1px solid var(--liva); display: flex; justify-content: space-around; font-size: small; transform: rotate(270deg); width: 925px; left: -435px; bottom: 200px;" class="font-aller">
+        <div style="background-color: var(--liva); width: 300px; text-align: center;">Declaration & Documents</div>
+        <div style="background-color: var(--liva); width: 150px; text-align: center;">Bank Details</div>
+        <div style="background-color: var(--liva); width: 150px; text-align: center;">Claim Cost Details</div>
+        <div style="background-color: var(--liva); width: 150px; text-align: center;">Claim Details</div>
+        <div style="background-color: var(--liva); width: 150px; text-align: center;">Claimant Details</div>
+    </div>
+</body>
+
+</html>

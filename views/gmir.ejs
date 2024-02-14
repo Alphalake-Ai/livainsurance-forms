@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        :root {
+            --liva: #F96B23;
+        }
+
+        @font-face {
+            font-family: "GE-SS-Two-Light";
+            src: url("/GE-SS-Two-Light.woff2");
+        }
+
+        @font-face {
+            font-family: "GE-SS-Two-Light";
+            src: url("/GE-SS-Two-Light.woff");
+        }
+
+        .font-aller {
+            font-family: 'Aller', sans-serif;
+        }
+
+        .font-ge {
+            font-family: 'GE-SS-TWO-Light' !important;
+        }
+
+        @media (width < 469px) {
+            body {
+                font-size: small;
+            }
+
+            h4 {
+                font-size: 1rem;
+            }
+
+            h6 {
+                font-size: 0.8rem;
+            }
+        }
+
+        body {
+            position: relative;
+        }
+
+        .d1 {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .d1 .d11 {
+            width: clamp(410px, 49%, 100vw);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .d11 label {
+            margin-bottom: 2px;
+        }
+
+        .d11 input,
+        .d11 select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 2px 5px;
+            height: 30px;
+        }
+
+        .d11 textarea {
+            margin-bottom: 10px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--liva);
+            outline-color: var(--liva);
+        }
+
+        .d1 .w-100 {
+            color: #fff;
+            background-color: var(--liva);
+            padding: 3px 6px;
+        }
+
+        table input {
+            font-size: small;
+            height: 23px;
+            padding: 2px 5px;
+            width: 100%;
+        }
+
+        .d12 {
+            padding-bottom: 0.5rem;
+        }
+
+        .d12 label {
+            width: min(330px, 100vw);
+            display: flex;
+            align-items: start;
+            column-gap: 10px;
+        }
+
+        .d12 label input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 0.2rem;
+        }
+
+        canvas#signature {
+            border: 1px solid var(--liva);
+        }
+
+        #sign_back {
+            position: fixed;
+            display: grid;
+            place-items: center;
+            z-index: 2;
+            width: 100lvw;
+            height: 100lvh;
+            backdrop-filter: blur(1px);
+            background-color: rgba(0, 0, 0, 0.3);
+            top: 0;
+            left: 0;
+        }
+
+        #signature-pad {
+            position: relative;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 3px;
+        }
+
+        #signature-pad .close-pad {
+            background-color: red;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            margin-left: auto;
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            display: grid;
+            place-items: center;
+            font-size: large;
+            border: none;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        #employee_sign_preview {
+            margin-top: 5px;
+            border: 1px solid var(--liva);
+        }
+
+        #employee_sign_preview[src=""] {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <title>GROUP MEDICAL INSURANCE REIMBURSEMENT CLAIM FORM</title>
+</head>
+
+<body>
+    <main>
+        <nav style="border-bottom: 1px solid var(--liva); padding: 0.5rem 1rem;">
+            <img src="/logo-orange.png" alt="Liva Insurance Logo" width="100px">
+        </nav>
+        <div style="text-align: center;" class="py-4 container-md">
+            <h3 class="font-aller">Group Medical Insurance Reimbursement Claim Form</h3>
+            <h4 class="font-ge">جماعي طبي بتأمين مطالبة استمارة</h4>
+        </div>
+        <article class="font-aller container-md">
+            <form action="/gmir" method="post"  enctype="multipart/form-data">
+                <div class="d1">
+                    <h4 class="w-100">Claimant Details</h4>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="member_id">Member ID <small>(As in Patient's Medical Card)</small></label>
+                        <input type="text" name="member_id" id="member_id" required pattern="^[0-9]{16}$" min="16" maxlength="16">
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="staff_id">Staff ID</label>
+                        <input type="text" name="staff_id" id="staff_id" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="employer_name">Name of Employer</label>
+                        <input type="text" name="employer_name" id="employer_name" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="policy_no">Policy Number</label>
+                        <input type="text" name="policy_no" id="policy_no" required pattern="[0-9]{14}">
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="employee_name">Name of Employee</label>
+                        <input type="text" name="employee_name" id="employee_name" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="claim_ref">Claim Ref</label>
+                        <input type="text" name="claim_ref" id="claim_ref" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="patient_name">Patient Name <small>(As in Patient's Medical Card)</small></label>
+                        <input type="text" name="patient_name" id="patient_name" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="relationship">Relationship with the Employee</label>
+                        <input type="text" name="relationship" id="relationship" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="gsm">GSM</label>
+                        <input type="tel" pattern="[0-9]{1,3}-[0-9]{10}" title="Format: 12-1234567809" name="gsm" id="gsm">
+                    </div>
+                </div>
+                <div class="d1">
+                    <h4 class="w-100">Claim Details</h4>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="date_from">Date of Treatment from</label>
+                        <input type="date" name="date_from" id="date_from" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="date_to">Date of Treatment to</label>
+                        <input type="date" name="date_to" id="date_to" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="treatment_country">Country of Treatment</label>
+                        <select name="treatment_country" id="treatment_country" required>
+                            <% for(let i=0; i<currencies.length; i++) { %>
+                                <option value="<%= `${currencies[i].currency_code}#${currencies[i].country}`%>">
+                                    <%= currencies[i].country %>
+                                </option>
+                                <% } %>
+                        </select>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="hospital_name">Name Of The Hospital/Clinic <small>(Where Treatment Was
+                                Availed)</small></label>
+                        <input type="text" name="hospital_name" id="hospital_name" required>
+                    </div>
+                    <div class="d11 col-12">
+                        <label for="diagnosis">Brief Description Of Nature Of Ailment/Diagnosis
+                            <small>(Mandatory)</small></label>
+                        <textarea class="px-2" name="diagnosis" id="diagnosis" cols="30" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="d1">
+                    <h4 class="w-100">Claim Cost Details</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-center col-6 col-sm-8 col-md-8 col-lg-8 col-xl-8">Description</th>
+                                <th class="text-center col-3 col-sm-4 col-md-2 col-lg-2 col-xl-2">Amount in Foreign
+                                    Currency</th>
+                                <th class="text-center col-3 col-sm-4 col-md-2 col-lg-2 col-xl-2">Amount in OMR</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>Consultation Fees</td>
+                            <td><input type="number" min="0" name="fr_cf"></td>
+                            <td><input type="number" min="0" name="omr_cf"></td>
+                        </tr>
+                        <tr>
+                            <td>Laboratory/Clinical Examination Charges</td>
+                            <td><input type="number" min="0" name="fr_cec"></td>
+                            <td><input type="number" min="0" name="omr_cec"></td>
+                        </tr>
+                        <tr>
+                            <td>Medicine Cost</td>
+                            <td><input type="number" min="0" name="fr_mc"></td>
+                            <td><input type="number" min="0" name="omr_mc"></td>
+                        </tr>
+                        <tr>
+                            <td>Treatment Charges</td>
+                            <td><input type="number" min="0" name="fr_tc"></td>
+                            <td><input type="number" min="0" name="omr_tc"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cost of Surgery
+                                <ol style="margin-bottom: 0;">
+                                    <li>
+                                        <div>
+                                            Hospital Room Rent
+                                            <div style="font-size: smaller;">
+                                                <div class="d-flex justify-cotent-between">
+                                                    <label style="width: 150px;" for="no_of_days">Number of Days</label>
+                                                    <input style="width: 50px;" type="number" min="0" id="no_of_days"
+                                                        name="no_of_days" required>
+                                                </div>
+                                                <div class="d-flex justify-cotent-between">
+                                                    <label style="width: 150px;" for="rate">Cost Per Day</label>
+                                                    <input style="width: 50px;" type="number" min="0" id="rate"
+                                                        name="rate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>Surgeons Fee</li>
+                                    <li>Others</li>
+                                </ol>
+                            </td>
+                            <td style="position: relative;">
+                                <div class="d-flex flex-column h-100"
+                                    style="position: absolute; top: 0; left: 0; width: 100%; padding: 0.4rem 0.3rem; row-gap: 0.3rem;">
+                                    <input type="number" name="fr_cos" id="fr_cos">
+                                    <input type="number" min="0" name="fr_hrr">
+                                    <input type="number" min="0" name="fr_sf" style="margin-top: auto;">
+                                    <input type="number" min="0" name="fr_cos_otr">
+                                </div>
+                            </td>
+                            <td style="position: relative;">
+                                <div class="d-flex flex-column h-100"
+                                    style="position: absolute; top: 0; left: 0; width: 100%; padding: 0.4rem 0.3rem; row-gap: 0.3rem;">
+                                    <input type="number" name="omr_cos" id="fr_cos">
+                                    <input type="number" min="0" name="omr_hrr">
+                                    <input type="number" min="0" name="omr_sf" style="margin-top: auto;">
+                                    <input type="number" min="0" name="omr_cos_otr">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Others</td>
+                            <td><input type="number" min="0" name="fr_otr"></td>
+                            <td><input type="number" min="0" name="omr_otr"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount</td>
+                            <td><input type="number" min="0" name="fr_ta"></td>
+                            <td><input type="number" min="0" name="omr_ta"></td>
+                        </tr>
+                        <tr>
+                            <td>Less: Excess/deductible/co-pay Applicable</td>
+                            <td><input type="number" min="0" name="fr_ded"></td>
+                            <td><input type="number" min="0" name="omr_ded"></td>
+                        </tr>
+                        <tr>
+                            <td>Balance Due</td>
+                            <td><input type="number" min="0" name="fr_balance"></td>
+                            <td><input type="number" min="0" name="omr_balance"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="d1">
+                    <h4 class="w-100">Bank Details</h4>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="account_number">Account Number</label>
+                        <input type="text" name="account_number" id="account_number" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="bank_name">Bank Name</label>
+                        <input type="text" name="bank_name" id="bank_name" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="bank_branch">Bank Branch</label>
+                        <input type="text" name="bank_branch" id="bank_branch" required>
+                    </div>
+                    <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+                        <label for="account_holder">Name of Account Holder</label>
+                        <input type="text" name="account_holder" id="account_holder" required>
+                    </div>
+                </div>
+                <div class="d1">
+                    <h4 class="w-100">Declaration and Documentation</h4>
+                    <div>
+                        <h6><b>In Patient Claim/Day Care - Documents Required</b></h6>
+                        <div class="d-flex flex-wrap justify-content-between d12">
+                            <label for="ip_r">
+                                <input type="checkbox" name="ip_r" id="ip_r" value="✔">
+                                <span>All Original Invoice/Receipts</span>
+                            </label>
+                            <label for="ip_pa">
+                                <input type="checkbox" name="ip_pa" id="ip_pa" value="✔">
+                                <span>Pre Authorization</span>
+                            </label>
+                            <label for="ip_ds">
+                                <input type="checkbox" name="ip_ds" id="ip_ds" value="✔">
+                                <span>Discarge Summary</span>
+                            </label>
+                            <label for="ip_pc">
+                                <input type="checkbox" name="ip_pc" id="ip_pc" value="✔">
+                                <span>Prescription Copy</span>
+                            </label>
+                            <label for="ip_mc">
+                                <input type="checkbox" name="ip_mc" id="ip_mc" value="✔">
+                                <span>Photocopy of Medical Card</span>
+                            </label>
+                            <label for="ip_ir">
+                                <input type="checkbox" name="ip_ir" id="ip_ir" value="✔">
+                                <span>Investigation Reports/Medical Reports</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <h6><b>Out Patient Claim - Documents Required</b></h6>
+                        <div class="d-flex flex-wrap justify-content-between d12">
+                            <label for="op_r">
+                                <input type="checkbox" name="op_r" id="op_r" value="✔">
+                                <span>All Original Invoice/Receipts</span>
+                            </label>
+                            <label for="op_ds">
+                                <input type="checkbox" name="op_ds" id="op_ds" value="✔">
+                                <span>Pre Authorization <small>(for Required Services)</small></span>
+                            </label>
+                            <label for="op_pc">
+                                <input type="checkbox" name="op_pc" id="op_pc" value="✔">
+                                <span>Prescription Copy</span>
+                            </label>
+                            <label for="op_mc">
+                                <input type="checkbox" name="op_mc" id="op_mc" value="✔">
+                                <span>Photocopy of Medical Card</span>
+                            </label>
+                            <label for="op_ir">
+                                <input type="checkbox" name="op_ir" id="op_ir" value="✔">
+                                <span>Investigation Reports / Medical Reports</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap" style="column-gap: 1rem;">
+                        <label for="no_of_documents"><b>Total Number of Documents Attached</b> <small>(Including this
+                                Form)</small></label>
+                        <input type="number" min="1" step="1" required name="no_of_documents" id="no_of_documents">
+                    </div>
+                </div>
+                <div>
+                    <input type="file" name="employee_sign" accept="image/png" id="employee_sign" required
+                        style="position: absolute; visibility: hidden; pointer-events: none;width: 0;height: 0;">
+                    <!-- <input type="file" name="employer_sign" accept="image/*" id="employer_sign"
+                        style="position: absolute; visibility: hidden; pointer-events: none;width: 0;height: 0;"> -->
+                    <input type="date" name="employee_sign_date" id="employee_sign_date"
+                        style="position: absolute; visibility: hidden; pointer-events: none;width: 0;height: 0;">
+                    <input type="submit" value="Submit" id="real_submit"
+                        style="position: absolute; visibility: hidden; pointer-events: none;width: 0;height: 0;">
+                </div>
+            </form>
+        </article>
+    </main>
+    <div class="d1 container-md">
+        <div class="d11 px-0 col-12 col-sm-12 col-md-12 col-lg-6">
+            <label for="employer_sign">
+                <b>Signature of Employee</b>
+            </label>
+            <div class="d-flex">
+                <button class="btn btn-sm btn-info mr-2" onclick="onUploadClick()">Upload</button>
+                <button class="btn btn-sm btn-info" onclick="openSignature()">Draw</button>
+            </div>
+            <img src="" id="employee_sign_preview" alt="Preview" width="300px" style="aspect-ratio: 8/5;">
+        </div>
+        <!-- <div class="d11 col-12 col-sm-12 col-md-12 col-lg-6">
+            <label for="employee_sign">Signature of Employer</label>
+        </div> -->
+    </div>
+    <div class="container-md d-flex mb-3">
+        <button class="btn btn-success ml-auto" onclick="submitForm()">Submit</button>
+    </div>
+    <div id="sign_back" style="display: none;">
+        <div id="signature-pad">
+            <div class="d-flex justify-content-between">
+                <span><b>Draw Your Signature</b></span>
+                <button class="close-pad" onclick="closeSignature()"><span>x</span></button>
+            </div>
+            <canvas id="signature"></canvas>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-sm btn-warning" onclick="clearSignature()">Clear</button>
+                <button class="btn btn-sm btn-success ml-2" onclick="saveSignature()">Save</button>
+            </div>
+        </div>
+    </div>
+    <script defer>
+
+        // function isSmartphone() {
+        //     const smartphoneRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+        //     return smartphoneRegex.test(navigator.userAgent);
+        // }
+
+        // function getOrientation() {
+        //     if ('orientation' in window) {
+        //         return Math.abs(window.orientation) === 0 ? 'portrait' : 'landscape';
+        //     } else {
+        //         return window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+        //     }
+        // }
+
+        // function onOrientationChange() {
+        //     if(isSmartphone()) {
+        //         let orientation = getOrientation();
+
+        //     }
+        // }
+
+        // window.addEventListener("orientationchange", onOrientationChange)
+
+        function submitForm() {
+            document.querySelector('#real_submit').click();
+        }
+
+        const employeePreview = document.querySelector('#employee_sign_preview');
+
+        // function renderSignaturePad(width, height) {
+        const signPadWrap = document.getElementById('sign_back');
+        const signPad = document.querySelector('#signature-pad');
+
+        const clientWidth = document.body.clientWidth;
+        const canvas = document.querySelector("canvas#signature");
+
+        canvas.width = clientWidth > 420 ? 420 : clientWidth - 20;
+        canvas.height = 250;
+        signPad.style.width = canvas.width + 20;
+
+        const signaturePad = new SignaturePad(canvas);
+
+        const employeeSignInput = document.querySelector('#employee_sign');
+        function onUploadClick() {
+            employeeSignInput.click();
+        }
+
+        function clearImagePreview() {
+            employeeSignInput.value = null;
+            employeePreview.setAttribute("src", "");
+        }
+
+        employeeSignInput.addEventListener("change", (e) => {
+            const fileList = e.target.files;
+            if (!fileList) return;
+
+            const file = fileList[0];
+            if (file.type !== "image/png") {
+                alert("Selected file is not a PNG file.");
+                return;
+            } else {
+                let url = URL.createObjectURL(file);
+                employeePreview.setAttribute("src", url);
+            }
+        })
+
+        function openSignature() {
+            document.getElementById('sign_back').style.display = 'grid';
+        }
+        function closeSignature() {
+            document.getElementById('sign_back').style.display = 'none';
+        }
+
+        function clearSignature() {
+            signaturePad.clear();
+        }
+        function saveSignature() {
+            if (signaturePad.isEmpty()) {
+                alert("Please provide a signature.");
+            } else {
+                const dataURL = signaturePad.toDataURL('image/png');
+                employeePreview.setAttribute("src", dataURL);
+                employeeSignInput.value = null;
+                selectDataUrlAsFile(dataURL, "employee_sign");
+                closeSignature();
+            }
+        }
+
+        function dataURLToBlob(dataUrl) {
+            let parts = dataUrl.split(';base64,');
+            let contentType = parts[0].split(':')[1];
+            let raw = window.atob(parts[1]);
+            let rawLength = raw.length;
+            let uint8Array = new Uint8Array(rawLength);
+
+            for (let i = 0; i < rawLength; ++i) {
+                uint8Array[i] = raw.charCodeAt(i);
+            }
+
+            return new Blob([uint8Array], { type: contentType });
+        }
+
+        function selectDataUrlAsFile(dataUrl, targetElementId) {
+            // Replace 'data:image/png;base64,...' with your desired data URL
+            let fileInput = document.getElementById(targetElementId);
+
+            // Create a Blob from the data URL
+            let blob = dataURLToBlob(dataUrl);
+
+            // Create a File object from the Blob
+            let file = new File([blob], 'signature.png', { type: "image/png" });
+
+            // Create a new FileList object with the File
+            let filesList = new DataTransfer();
+            filesList.items.add(file);
+
+            // Set the files property of the file input to the FileList object
+            fileInput.files = filesList.files;
+        }
+
+        function fileToDataUrl(file) {
+            // Check if the browser supports FileReader API
+            if (!window.FileReader) {
+                throw new Error('FileReader API is not supported by your browser.');
+            }
+
+            const reader = new FileReader();
+
+            // Define a promise to handle asynchronous file reading
+            const promise = new Promise((resolve, reject) => {
+                reader.onload = (event) => {
+                    resolve(event.target.result); // Resolve with the data URL
+                };
+
+                reader.onerror = (error) => {
+                    reject(error); // Reject with an error if file reading fails
+                };
+
+                reader.readAsDataURL(file); // Start reading the file
+            });
+
+            return promise;
+        }
+
+        const fileInput = document.getElementById('fileInput');
+
+        // fileInput.addEventListener('change', (event) => {
+        //     const file = event.target.files[0]; // Get the selected file
+
+        //     fileToDataUrl(file)
+        //         .then(dataUrl => {
+        //             // Use the data URL here, e.g., display an image
+        //             const image = document.createElement('img');
+        //             image.src = dataUrl;
+        //             document.body.appendChild(image);
+        //         })
+        //         .catch(error => {
+        //             console.error('Error converting file to data URL:', error);
+        //         });
+        // });
+
+        // }
+    </script>
+</body>
+
+</html>
