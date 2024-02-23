@@ -1,12 +1,18 @@
 import express from "express";
 import multer from "multer";
-import fs from "fs";
+import fs from "fs/promises";
+import uuid from "uuidv4";
 import { Worker } from "worker_threads";
-import { bufferToDataURL, formatDateForGMIR, getToday } from "./utils/helpers.js";
+import { toDataURL, formatDateForGMIR, getToday } from "./utils/helpers.js";
 import { gmirSchema } from "./utils/validation-schema.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 // import csurf from "csurf";
 // import cookieParser from "cookie-parser";
-
+import cors from "cors";
+import { decrypt, encrypt } from "./utils/crypt.js";
+import { sendFormLinkMail } from "./utils/mail.js";
 
 const app = express();
 const port = 3000;
@@ -17,7 +23,7 @@ const port = 3000;
 // app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors());
 // app.use((req, res, next) => {
 //     res.locals.csrfToken = req.csrfToken();
 //     next();
@@ -42,15 +48,36 @@ const csrfMiddleware = (req, res, next) => {
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
 app.use(express.static('public'))
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, `uploads/${req.params.id}`); // Destination folder for uploaded files
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname); // Rename files if needed
+    }
+});
+const upload = multer({ storage: storage }).any();
+
 
 app.get("/", (req, res) => {
     res.render("index");
 })
+app.post("/", async (req, res) => {
+    const { email, form_name } = req.body;
+    const id = uuid.uuid();
+    const token = await encrypt(JSON.stringify({ email, id }));
+    const formLink = `${process.env.PUBLIC_URL}/${form_name}/${id}?token=${token}`;
+    try {
+        // await sendFormLinkMail([email], formLink);
+        return res.status(200).send(`<a href="${formLink}">${formLink}</a>`);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error });
+    }
+});
 
 app.get('/clrc', (req, res) => {
     res.render('clrc');
@@ -58,84 +85,105 @@ app.get('/clrc', (req, res) => {
 
 app.post("/clrc", async (req, res) => {
     // extract form data from the page
-    let formData = req.body;  
+    let formData = req.body;
     let pdfName = "clrc_" + new Date().getTime() + ".pdf";
     let template = "clrc.html";
 
     try {
-        await generatePDF({template, data: formData, pdfName});
+        await generatePDF({ template, data: formData, pdfName });
         return res.render('thank-you', { file_url: pdfName });
     } catch (error) {
-        return  res.status(500).send(`An error occurred: ${error}`);
+        return res.status(500).send(`An error occurred: ${error}`);
     }
 });
 
-app.get("/gmir", (req, res) => {
-    res.render('gmir', { currencies });
-})
 
-function validateGMIRInput(req, res, next) {
-    console.log(req.body);
-    const {error} = gmirSchema.validate(req.body);
-    if(error) {
-        return res.status(401).json(error);
-    } else {
-        next();
-    }
-}
+app.get("/gmir/:id", (req, res) => {
+    return res.render('gmir', { currencies });
+});
 
-app.post("/gmir", upload.single('employee_sign'), async (req, res) => {
-    let formData = req.body;
-    const {error} = gmirSchema.validate(req.body);
-    if(error) {
-        return res.status(401).json(error);
-    }
+app.post("/gmir/:id", async (req, res) => {
+    const { id } = req.params;
+    if (!uuid.isUuid(id)) return res.render('error', { details: "Invalid Form URL!" });
 
+    const token = req.query.token;
+    if (!token) return res.render('error', { details: "Token missing in query" });
 
-    const sign = req.file;
-    const signDataUrl = bufferToDataURL(sign.buffer, sign.mimetype);
-
-    const [currency, country] = formData["treatment_country"].split("#");
-
-    formData["currency"] = currency;
-    formData["treatment_country"] = country;
-    formData["date_from"] = formatDateForGMIR(formData["date_from"]);
-    formData["date_to"] = formatDateForGMIR(formData["date_to"]);
-    formData["employee_sign"] = signDataUrl;
-    formData["employee_sign_date"] = formatDateForGMIR(getToday());
-    formData["member_id"] = formData["member_id"].split("");
-    formData["policy_no"] = formData["policy_no"].split("");
-
-    fs.writeFileSync("gmir-ex.json", JSON.stringify(formData), { encoding: "utf8" });
-
-    let pdfName = "gmir_" + new Date().getTime() + ".pdf";
-    let template = "gmir.html";
+    const str = await decrypt(token);
 
     try {
-        
-        await generatePDF({template, data: formData, pdfName, saveRaw: true});
-        return res.render('thank-you', { file_url: pdfName });
+        await fs.readdir(`uploads/${id}`);
     } catch (error) {
-        return  res.status(500).send(`An error occurred: ${error}`);
+        await fs.mkdir(`uploads/${id}`);
     }
+
+    upload(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            // Multer error occurred
+            return res.render('error', { details: err.message });
+        } else if (err) {
+            // Any other error occurred
+            console.log(err);
+            return res.render('error', { details: 'Something went wrong!' });
+        }
+
+        let formData = req.body;
+        const { error, value } = gmirSchema.validate(req.body);
+        if (error) {
+            return res.render('error', { details: error });
+        }
+        formData = value;
+
+        try {
+            const dc = JSON.parse(str);
+            const tokenFormId = dc.id;
+            const tokenEmail = dc.email;
+
+            if (tokenFormId !== id) return res.render("error", { details: "Token Id malformed!" });
+            if (tokenEmail !== formData["email"]) return res.render("error", { details: "Token Email malformed!" });
+        } catch (error) {
+            return res.render("error", { details: "Token malformed!" });
+        }
+        try {
+
+            const emplSign = req.files.find(f => f.fieldname === "employee_sign");
+            let employeeSign = await fs.readFile(`${emplSign.destination}/${emplSign.filename}`);
+            // const employerSign = req.files.find(f => f.fieldName === "employer_sign");
+            const employeeSignDataUrl = toDataURL(employeeSign, emplSign.mimetype);
+            // const employerSignDataUrl = bufferToDataURL(employerSign.buffer, employerSign.mimetype);
+
+            const [currency, country] = formData["treatment_country"].split("#");
+
+            formData["currency"] = currency;
+            formData["treatment_country"] = country;
+            formData["date_from"] = formatDateForGMIR(formData["date_from"]);
+            formData["date_to"] = formatDateForGMIR(formData["date_to"]);
+            formData["employee_sign"] = employeeSignDataUrl || "";
+            formData["employee_sign_date"] = formatDateForGMIR(getToday());
+            formData["member_id"] = formData["member_id"].split("");
+            formData["policy_no"] = formData["policy_no"].split("");
+
+            await fs.writeFile(`submissions/${id}.json`, JSON.stringify({ ...req.body, attachments: req.files }), { encoding: "utf8" });
+
+            let pdfName = "gmir_" + id + ".pdf";
+            let template = "gmir.html";
+
+            await generatePDF({ template, data: formData, pdfName, saveRaw: true });
+            return res.render('thank-you', { file_url: pdfName });
+        } catch (error) {
+            console.log(error);
+            return res.render('error', { details: "Internal Error" });
+        }
+    })
 })
 
-  
-// app.post("/process", upload.single('excelFile'), async (req, res) => {
-//     const result = await run(req.file.buffer, req.file.originalname);
-//     if(result.success){
-//         return res.status(200).json(result);
-//     } else {
-//         return res.status(405).json(result);
-//     }
-// })
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
 
 
-function generatePDF({template, data, pdfName, saveRaw = false}) {
+function generatePDF({ template, data, pdfName, saveRaw = false }) {
     const worker = new Worker("./generator.js", {
         workerData: {
             template, data, pdfName, saveRaw
@@ -144,7 +192,7 @@ function generatePDF({template, data, pdfName, saveRaw = false}) {
     return new Promise((resolve, reject) => {
         worker.once('message', (data) => {
             worker.terminate();
-            if(data.error) {
+            if (data.error) {
                 reject();
             } else {
                 resolve(data);

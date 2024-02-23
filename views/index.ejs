@@ -34,9 +34,32 @@
         nav a:hover {
             background-color: #ccc;
         }
-        main {
+        main article{
             padding: 20px;
             text-align: center;
+        }
+        main form {
+            padding: 10px 20px;
+            margin: auto;
+            max-width: min(580px, 90%);
+            border: 1px solid rgb(160, 159, 159);
+            background-color: #fff;
+        }
+        main form div {
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        main form input,
+        main form select,
+        main form button {
+            padding: 4px 8px;
+        }
+        main form button {
+            margin-top: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -44,14 +67,33 @@
     <header>
         <h1>Welcome to Liva Insurance Claims</h1>
     </header>
-    <nav>
+    <!-- <nav>
         <a href="/clrc">Check list for Reimbursement Claims</a>
         <a href="/gmir">Group Medical Insurance Reimbursement Claim Form</a>
         <a href="contact.html">Contact</a>
-    </nav>
+    </nav> -->
     <main>
-        <h2>Welcome to Our Website!</h2>
-        <p>This is a basic welcome page with links to other pages.</p>
+        <article>
+            <h2>Welcome to Our Website!</h2>
+            <p>Please fill the below form to continue</p>
+        </article>
+        <br>
+        <form action="/" method="post">
+            <div>
+                <label for="email">Please enter your email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div>
+                <label for="form_name">Claim Form</label>
+                <select name="form_name" id="form_name">
+                    <option value="clrc">Checklist for Reimbursement Claims (CLRC)</option>
+                    <option value="gmir">Group Medical Insurance Reimbursement Claim Form (GMIRF)</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
     </main>
 </body>
 </html>
