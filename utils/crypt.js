@@ -1,12 +1,15 @@
 import crypto from "crypto";
-import dotenv from "dotenv";
 import fs from "fs/promises";
 
-dotenv.config();
+let cachedSecret = null;
+async function getSecret() {
+    if (cachedSecret) return cachedSecret;
+    cachedSecret = await fs.readFile("secret.txt");
+    return cachedSecret;
+}
 
 export async function encrypt(text) {
-    const secret = await fs.readFile('secret.txt');
-    
+    const secret = await getSecret();
     let iv = crypto.randomBytes(16);
     let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(secret), iv);
     let encrypted = cipher.update(text);
@@ -15,7 +18,7 @@ export async function encrypt(text) {
 }
 
 export async function decrypt(text) {
-    const secret = await fs.readFile('secret.txt');
+    const secret = await getSecret();
     let textParts = text.split(':');
     let iv = Buffer.from(textParts.shift(), 'hex');
     let encryptedText = Buffer.from(textParts.join(':'), 'hex');

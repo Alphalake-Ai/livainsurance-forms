@@ -17,7 +17,22 @@ export function toDataURL(data, mimeType) {
     return dataURL;
 }
 
-export function formatDateForGMIR(date){
-    return date.replace(/\-/g,"").split("");
+export function formatDateForGMIR(d) {
+    let date = new Date(d)
+    let day = date.getDate();
+    let month = date.getMonth() + 1; // January is 0, so we need to add 1
+    let year = date.getFullYear();
+
+    // Ensure two digits for day and month
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+
+    // Format the date as "DD-MM-YYYY"
+    let fm = day + month + year;
+    return fm.split("")
 }
 

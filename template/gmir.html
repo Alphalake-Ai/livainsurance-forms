@@ -1090,8 +1090,11 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
         {{#employer_sign}}<img src="{{employer_sign}}" alt="Employee Sign" width="80" style="aspect-ratio: 8/5; ">
         {{/employer_sign}}
     </div>
-    <div id="employee_sign" style="width: 80px; aspect-ratio: 8/5;position: absolute;left: 790px; top: 1420px;">
-        {{#employee_sign}}<img src="{{employee_sign}}" width="80" style="aspect-ratio: 8/5; ">{{/employee_sign}}
+    <div id="employee_sign" style="width: 145px; aspect-ratio: 8/3;position: absolute;left: 770px; top: 1420px;">
+        {{#employee_sign}}
+        <img src="{{employee_sign}}" width="100%" style="aspect-ratio: 8/3; -o-object-fit: cover;
+        object-fit: cover;">
+        {{/employee_sign}}
     </div>
     <div id="employer_sign_date" style="position: absolute; display: flex; justify-content: space-around; left: 117px; top: 1454px;width: 136px;">
         {{#employer_sign_date}}

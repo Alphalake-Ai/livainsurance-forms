@@ -1,10 +1,11 @@
 import crypto from "crypto";
-import fs from "fs";
+import fs from "fs/promises";
 
-const secret = crypto.randomBytes(32);
-
-// Write the secret to a text file
-fs.writeFile('secret.txt', secret, (err) => {
-    if (err) throw err;
-    console.log('The secret has been saved!');
-});
+export async function checkAndGenerateSecret() {
+    try {
+        fs.readFile('secret.txt');
+    } catch (error) {
+        const secret = crypto.randomBytes(32);
+        fs.writeFile('secret.txt', secret);
+    }
+}

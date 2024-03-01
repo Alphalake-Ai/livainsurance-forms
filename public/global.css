@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: "GE-SS-Two-Light";
-    src: url("/GE-SS-Two-Light.woff2");
+    src: url("/fonts/GE-SS-Two-Light.woff2");
 }
 
 @font-face {
     font-family: "GE-SS-Two-Light";
-    src: url("/GE-SS-Two-Light.woff");
+    src: url("/fonts/GE-SS-Two-Light.woff");
 }
 
 .font-arial{

@@ -13,6 +13,7 @@ dotenv.config();
 import cors from "cors";
 import { decrypt, encrypt } from "./utils/crypt.js";
 import { sendFormLinkMail } from "./utils/mail.js";
+import { checkAndGenerateSecret } from "./secret.js";
 
 const app = express();
 const port = 3000;
@@ -61,32 +62,53 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).any();
 
+async function validateIdAndToken(req, res, next) {
+    const { id } = req.params;
+    if (!uuid.isUuid(id)) return res.render('error', { details: "Invalid Form URL!" });
+
+    const token = req.query.token;
+    if (!token) return res.render('error', { details: "Token missing in query" });
+
+    const str = await decrypt(token);
+    let dc = { email: "", id: "" };
+    try {
+        dc = JSON.parse(str);
+        if(dc.id !== id) return res.render('error', { details: "Token Malformed!" });
+        req.tokenPayload = dc;
+        next();
+    } catch (error) {
+        return res.render('error', { details: "Token Malformed!" });
+    }
+}
 
 app.get("/", (req, res) => {
     res.render("index");
 })
 app.post("/", async (req, res) => {
     const { email, form_name } = req.body;
+    if(!email || !form_name) return res.render('error', { details: "Please provide both fields!" });
+
     const id = uuid.uuid();
     const token = await encrypt(JSON.stringify({ email, id }));
     const formLink = `${process.env.PUBLIC_URL}/${form_name}/${id}?token=${token}`;
     try {
         await sendFormLinkMail([email], formLink);
-        return res.status(200).send(`<h3>Please Check Your Inbox!</h3>`);
+        return res.status(200).send(`<a href="${formLink}">Please Check Your Inbox!</a>`);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error });
     }
 });
 
-app.get('/clrc', (req, res) => {
-    res.render('clrc');
+app.get('/clrc/:id', validateIdAndToken, (req, res) => {
+    return res.render('clrc');
 });
 
-app.post("/clrc", async (req, res) => {
+app.post("/clrc/:id", validateIdAndToken, async (req, res) => {
     // extract form data from the page
+    const dc = req.tokenPayload;
     let formData = req.body;
-    let pdfName = "clrc_" + new Date().getTime() + ".pdf";
+    let pdfName = "clrc_" + dc.id + ".pdf";
     let template = "clrc.html";
 
     try {
@@ -98,19 +120,13 @@ app.post("/clrc", async (req, res) => {
 });
 
 
-app.get("/gmir/:id", (req, res) => {
+app.get("/gmir/:id", validateIdAndToken, (req, res) => {
     return res.render('gmir', { currencies });
 });
 
-app.post("/gmir/:id", async (req, res) => {
+
+app.post("/gmir/:id", validateIdAndToken, async (req, res) => {
     const { id } = req.params;
-    if (!uuid.isUuid(id)) return res.render('error', { details: "Invalid Form URL!" });
-
-    const token = req.query.token;
-    if (!token) return res.render('error', { details: "Token missing in query" });
-
-    const str = await decrypt(token);
-
     try {
         await fs.readdir(`uploads/${id}`);
     } catch (error) {
@@ -119,10 +135,8 @@ app.post("/gmir/:id", async (req, res) => {
 
     upload(req, res, async function (err) {
         if (err instanceof multer.MulterError) {
-            // Multer error occurred
             return res.render('error', { details: err.message });
         } else if (err) {
-            // Any other error occurred
             console.log(err);
             return res.render('error', { details: 'Something went wrong!' });
         }
@@ -134,18 +148,10 @@ app.post("/gmir/:id", async (req, res) => {
         }
         formData = value;
 
+        const dc = req.tokenPayload;
+        if (dc.email !== formData["email"]) return res.render("error", { details: "Token malformed!" });
+        
         try {
-            const dc = JSON.parse(str);
-            const tokenFormId = dc.id;
-            const tokenEmail = dc.email;
-
-            if (tokenFormId !== id) return res.render("error", { details: "Token Id malformed!" });
-            if (tokenEmail !== formData["email"]) return res.render("error", { details: "Token Email malformed!" });
-        } catch (error) {
-            return res.render("error", { details: "Token malformed!" });
-        }
-        try {
-
             const emplSign = req.files.find(f => f.fieldname === "employee_sign");
             let employeeSign = await fs.readFile(`${emplSign.destination}/${emplSign.filename}`);
             // const employerSign = req.files.find(f => f.fieldName === "employer_sign");
@@ -178,8 +184,13 @@ app.post("/gmir/:id", async (req, res) => {
 })
 
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.listen(port, (err) => {
+    if(err) {
+        console.log(err);
+    } else {
+        checkAndGenerateSecret();
+        console.log(`Server is running at http://localhost:${port}`);
+    }
 });
 
 
