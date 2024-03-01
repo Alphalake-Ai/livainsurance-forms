@@ -91,9 +91,10 @@ app.post("/", async (req, res) => {
     const id = uuid.uuid();
     const token = await encrypt(JSON.stringify({ email, id }));
     const formLink = `${process.env.PUBLIC_URL}/${form_name}/${id}?token=${token}`;
+    console.log(formLink);
     try {
-        await sendFormLinkMail([email], formLink);
-        return res.status(200).send(`<a href="${formLink}">Please Check Your Inbox!</a>`);
+        // await sendFormLinkMail([email], formLink);
+        return res.status(200).send(`<a href="${formLink}" target="_blank">Please Check Your Inbox!</a>`);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error });
