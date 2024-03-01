@@ -94,7 +94,7 @@ app.post("/", async (req, res) => {
     console.log(formLink);
     try {
         await sendFormLinkMail([email], formLink);
-        return res.render("alert")
+        return res.render("alert", { link: formLink })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error });
