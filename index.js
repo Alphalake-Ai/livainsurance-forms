@@ -93,8 +93,8 @@ app.post("/", async (req, res) => {
     const formLink = `${process.env.PUBLIC_URL}/${form_name}/${id}?token=${token}`;
     console.log(formLink);
     try {
-        // await sendFormLinkMail([email], formLink);
-        return res.status(200).send(`<a href="${formLink}" target="_blank">Please Check Your Inbox!</a>`);
+        await sendFormLinkMail([email], formLink);
+        return res.render("alert")
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error });
